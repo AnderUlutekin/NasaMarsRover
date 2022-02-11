@@ -1,5 +1,6 @@
 package com.example.nasamarsroverphotos.ui.photos
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,10 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberImagePainter
-import com.example.nasamarsroverphotos.model.Photos
+import com.example.nasamarsroverphotos.model.Photo
 
 @Composable
-fun PhotoCard(myPhoto: Photos) {
+fun PhotoCard(photo: Photo) {
+    Log.d("Debug", photo.imgSrc)
     Card(
         shape = RoundedCornerShape(8.dp),
         backgroundColor = Color(0xFFA5A2A2),
@@ -27,18 +29,17 @@ fun PhotoCard(myPhoto: Photos) {
             modifier = Modifier.padding(all = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row() {
+            Row {
                 Image(
-                    painter = rememberImagePainter(myPhoto.imageURL),
+                    painter = rememberImagePainter(photo.imgSrc),
                     contentDescription = null,
-                    modifier = Modifier
-                        .size(150.dp)
+                    modifier = Modifier.size(150.dp)
                 )
             }
             Spacer(modifier = Modifier.height(10.dp))
             Row() {
                 Text(
-                    text = "${myPhoto.ID}"
+                    text = "${photo.id}"
                 )
             }
         }

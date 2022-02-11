@@ -6,11 +6,10 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.nasamarsroverphotos.model.Photos
+import com.example.nasamarsroverphotos.model.Photo
 
 @Composable
-fun PhotoList(photosList: List<Photos>?) {
+fun PhotoList(photosList: List<Photo>?) {
     if (photosList != null) {
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
@@ -18,7 +17,7 @@ fun PhotoList(photosList: List<Photos>?) {
             //contentPadding = PaddingValues(16.dp)
         ) {
             items(photosList.size) { index ->
-                PhotoCard(myPhoto = photosList[index])
+                PhotoCard(photo = photosList[index])
             }
         }
     } else {

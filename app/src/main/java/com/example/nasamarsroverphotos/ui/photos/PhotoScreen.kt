@@ -1,17 +1,19 @@
 package com.example.nasamarsroverphotos.ui.photos
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.nasamarsroverphotos.services.ApiService
 import com.example.nasamarsroverphotos.ui.theme.NasaMarsRoverPhotosTheme
 import com.example.nasamarsroverphotos.viewmodel.MainViewModel
 
 @Composable
 fun PhotoScreen(mainViewModel: MainViewModel) {
+    val listState = mainViewModel.photosListState
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -21,9 +23,13 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
             )
         },
         content = {
-            PhotoList(
-                photosList = mainViewModel.photosListResponse
-            )
+            Column {
+                Text(text = mainViewModel.errorMessage ?: "")
+                PhotoList(
+                    photosList = listState
+                )
+            }
+
         },
     )
 }
@@ -33,6 +39,6 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
 fun DefaultPreview() {
     NasaMarsRoverPhotosTheme {
         val viewModel = MainViewModel()
-        PhotoList(photosList = viewModel.photosListResponse)
+        PhotoList(photosList = viewModel.photosListState)
     }
 }
