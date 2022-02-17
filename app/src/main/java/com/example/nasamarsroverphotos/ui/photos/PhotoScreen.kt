@@ -13,6 +13,7 @@ import com.example.nasamarsroverphotos.viewmodel.MainViewModel
 @Composable
 fun PhotoScreen(mainViewModel: MainViewModel) {
     val listState = mainViewModel.photosListState
+    val page = mainViewModel.page
 
     Scaffold(
         topBar = {
@@ -26,7 +27,8 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
             Column {
                 Text(text = mainViewModel.errorMessage ?: "")
                 PhotoList(
-                    photosList = listState
+                    photosList = listState,
+                    mainViewModel = mainViewModel
                 )
             }
 
@@ -39,6 +41,9 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
 fun DefaultPreview() {
     NasaMarsRoverPhotosTheme {
         val viewModel = MainViewModel()
-        PhotoList(photosList = viewModel.photosListState)
+        PhotoList(
+            photosList = viewModel.photosListState,
+            mainViewModel = viewModel
+        )
     }
 }
