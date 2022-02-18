@@ -9,7 +9,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.nasamarsroverphotos.ui.theme.NasaMarsRoverPhotosTheme
 import com.example.nasamarsroverphotos.viewmodel.MainViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
+import com.google.accompanist.pager.rememberPagerState
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun PhotoScreen(mainViewModel: MainViewModel) {
     val listState = mainViewModel.photosListState
@@ -24,12 +28,16 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
             )
         },
         content = {
-            Column {
-                Text(text = mainViewModel.errorMessage ?: "")
-                PhotoList(
-                    photosList = listState,
-                    mainViewModel = mainViewModel
-                )
+            HorizontalPager(count = 5) { page ->
+                mainViewModel.horizontalPageChange(page)
+                Column {
+                    Text(text = mainViewModel.errorMessage ?: "")
+                    Text(text = "Camera: ${mainViewModel.cameraName.value}")
+                    PhotoList(
+                        photosList = listState,
+                        mainViewModel = mainViewModel
+                    )
+                }
             }
 
         },
