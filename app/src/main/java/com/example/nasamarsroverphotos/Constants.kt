@@ -2,7 +2,7 @@ package com.example.nasamarsroverphotos
 
 object Constants {
 
-    const val API_KEY = "SqChMVh0gYSkzot8xbp7tZSh9de5OPPcKdkmfTr3"
+    const val API_KEY = "FHkPE7dZrOdIXduW8xa7vMdOJMTIJw0Jua0Ib5e3"
 
     const val BASE_URL = "https://api.nasa.gov/"
 

@@ -13,9 +13,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NasaMarsRoverPhotosTheme {
+                val horizontalViewModel = HorizontalViewModel()
                 PhotoScreen(
-                    mainViewModel = MainViewModel(),
-                    horizontalViewModel = HorizontalViewModel()
+                    mainViewModel = MainViewModel(horizontalViewModel = horizontalViewModel),
+                    horizontalViewModel = horizontalViewModel
                 )
             }
         }
