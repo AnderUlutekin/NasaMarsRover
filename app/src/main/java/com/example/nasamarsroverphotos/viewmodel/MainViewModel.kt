@@ -18,7 +18,6 @@ class MainViewModel() : ViewModel() {
     var errorMessage by mutableStateOf<String>("")
 
     val page = mutableStateOf(1)
-    val cameraName = mutableStateOf("fhaz")
 
     private var photosListScrollPosition = 0
 
@@ -26,7 +25,7 @@ class MainViewModel() : ViewModel() {
         viewModelScope.launch {
             val apiService = ApiService.getInstance()
             try {
-                val nasaResponse = apiService.getPhotos(page = 1, camera = "fhaz")
+                val nasaResponse = apiService.getPhotos(page = 1)
                 photosListState = nasaResponse.photos
             }
             catch (e: Exception) {
@@ -44,7 +43,7 @@ class MainViewModel() : ViewModel() {
 
                 val apiService = ApiService.getInstance()
                 if (page.value > 1) {
-                    val result = apiService.getPhotos(page = page.value, camera = cameraName.value)
+                    val result = apiService.getPhotos(page = page.value)
                     appendPhotos(result.photos)
                 }
             }
@@ -63,47 +62,6 @@ class MainViewModel() : ViewModel() {
 
     fun onChangePhotoScrollPosition(position: Int) {
         photosListScrollPosition = position
-    }
-
-    fun resetPage() {
-        page.value = 1
-    }
-
-    fun horizontalPageChange(index: Int) {
-        viewModelScope.launch {
-
-            changeCameraName(index = index)
-
-            val apiService = ApiService.getInstance()
-            val nasaResponse = apiService.getPhotos(page = 1, camera = cameraName.value)
-            changeList(nasaResponse.photos)
-        }
-    }
-
-    fun changeList(photos: List<Photo>) {
-        this.photosListState = photos
-    }
-
-    fun changeCameraName(index: Int) {
-        cameraName.value = getCameraName(index = index)
-    }
-
-    fun getCameraName(index: Int): String {
-        if (index == 0) {
-            return "fhaz"
-        }
-        if (index == 1) {
-            return "rhaz"
-        }
-        if (index == 2) {
-            return "mast"
-        }
-        if (index == 3) {
-            return "chemcam"
-        }
-        else {
-            return "navcam"
-        }
     }
 
     init {

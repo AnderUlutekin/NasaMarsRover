@@ -11,8 +11,7 @@ import retrofit2.http.Query
 interface ApiService {
     @GET("mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=$API_KEY")
     suspend fun getPhotos(
-        @Query("page") page: Int,
-        @Query("camera") camera: String
+        @Query("page") page: Int
     ): NasaResponse
 
     companion object {

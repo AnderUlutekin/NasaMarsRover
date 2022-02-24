@@ -28,16 +28,12 @@ fun PhotoScreen(mainViewModel: MainViewModel) {
             )
         },
         content = {
-            HorizontalPager(count = 5) { page ->
-                mainViewModel.horizontalPageChange(page)
-                Column {
-                    Text(text = mainViewModel.errorMessage ?: "")
-                    Text(text = "Camera: ${mainViewModel.cameraName.value}")
-                    PhotoList(
-                        photosList = listState,
-                        mainViewModel = mainViewModel
-                    )
-                }
+            Column {
+                Text(text = mainViewModel.errorMessage ?: "")
+                PhotoList(
+                    photosList = listState,
+                    mainViewModel = mainViewModel
+                )
             }
 
         },
