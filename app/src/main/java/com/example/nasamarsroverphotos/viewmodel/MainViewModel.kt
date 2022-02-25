@@ -12,12 +12,13 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class MainViewModel() : ViewModel() {
+class MainViewModel(horizontalViewModel: HorizontalViewModel) : ViewModel() {
 
     var photosListState by mutableStateOf<List<Photo>>(emptyList())
     var errorMessage by mutableStateOf<String>("")
 
     val page = mutableStateOf(1)
+    val cameraName = horizontalViewModel.cameraName
 
     private var photosListScrollPosition = 0
 
@@ -25,7 +26,7 @@ class MainViewModel() : ViewModel() {
         viewModelScope.launch {
             val apiService = ApiService.getInstance()
             try {
-                val nasaResponse = apiService.getPhotos(page = 1)
+                val nasaResponse = apiService.getPhotos(page = 1, camera = "fhaz")
                 photosListState = nasaResponse.photos
             }
             catch (e: Exception) {
@@ -43,7 +44,7 @@ class MainViewModel() : ViewModel() {
 
                 val apiService = ApiService.getInstance()
                 if (page.value > 1) {
-                    val result = apiService.getPhotos(page = page.value)
+                    val result = apiService.getPhotos(page = page.value, cameraName.value)
                     appendPhotos(result.photos)
                 }
             }
