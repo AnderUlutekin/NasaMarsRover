@@ -1,25 +1,28 @@
 package com.example.nasamarsroverphotos.viewmodel
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.nasamarsroverphotos.Constants
 import com.example.nasamarsroverphotos.model.Photo
 import com.example.nasamarsroverphotos.services.ApiService
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
-class HorizontalViewModel() : ViewModel() {
+class HorizontalViewModel(private val state: SavedStateHandle) : ViewModel() {
     var photosListState by mutableStateOf<List<Photo>>(emptyList())
 
     val cameraName = mutableStateOf("fhaz")
 
+    var pageNumber = state.getLiveData("pageNumber", 0)
+
     fun changePage(index: Int, mainViewModel: MainViewModel) {
         viewModelScope.launch {
-            changeCameraName(index = index, mainViewModel = mainViewModel)
+            pageNumber.value = index
+            changeCameraName(index = pageNumber.value!!, mainViewModel = mainViewModel)
             val apiService = ApiService.getInstance()
             val result = apiService.getPhotos(1, camera = cameraName.value)
             changePhotos(photos = result.photos, mainViewModel = mainViewModel)

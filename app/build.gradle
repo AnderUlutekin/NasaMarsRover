@@ -78,4 +78,7 @@ dependencies {
 
     //VIEWPAGE
     implementation "com.google.accompanist:accompanist-pager:0.24.2-alpha"
+
+    //SAVEDSTATE
+    //implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1"
 }

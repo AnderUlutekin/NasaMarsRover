@@ -7,6 +7,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.SavedStateHandle
 import com.example.nasamarsroverphotos.ui.theme.NasaMarsRoverPhotosTheme
 import com.example.nasamarsroverphotos.viewmodel.HorizontalViewModel
 import com.example.nasamarsroverphotos.viewmodel.MainViewModel
@@ -58,7 +59,7 @@ fun PhotoScreen(mainViewModel: MainViewModel, horizontalViewModel: HorizontalVie
 @Composable
 fun DefaultPreview() {
     NasaMarsRoverPhotosTheme {
-        val viewModel = MainViewModel(horizontalViewModel = HorizontalViewModel())
+        val viewModel = MainViewModel(horizontalViewModel = HorizontalViewModel(SavedStateHandle()))
         PhotoList(
             photosList = viewModel.photosListState,
             mainViewModel = viewModel

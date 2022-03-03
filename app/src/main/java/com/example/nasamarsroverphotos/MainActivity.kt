@@ -3,6 +3,7 @@ package com.example.nasamarsroverphotos
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.SavedStateHandle
 import com.example.nasamarsroverphotos.ui.photos.PhotoScreen
 import com.example.nasamarsroverphotos.ui.theme.NasaMarsRoverPhotosTheme
 import com.example.nasamarsroverphotos.viewmodel.HorizontalViewModel
@@ -13,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NasaMarsRoverPhotosTheme {
-                val horizontalViewModel = HorizontalViewModel()
+                val horizontalViewModel = HorizontalViewModel(SavedStateHandle())
                 PhotoScreen(
                     mainViewModel = MainViewModel(horizontalViewModel = horizontalViewModel),
                     horizontalViewModel = horizontalViewModel
